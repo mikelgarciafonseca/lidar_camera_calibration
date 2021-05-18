@@ -337,8 +337,8 @@ def calibrate(points2D=None, points3D=None):
         translation_vector, camera_matrix, dist_coeffs)[0].squeeze(1)
     assert(points2D_reproj.shape == points2D.shape)
     error = (points2D_reproj - points2D)[inliers]  # Compute error only over inliers.
-    rmse = np.sqrt(np.mean(error[:, 0] ** 2 + error[:, 1] ** 2))
-    rospy.loginfo('Re-projection error before LM refinement (RMSE) in px: ' + str(rmse))
+    #rmse = np.sqrt(np.mean(error[:, 0] ** 2 + error[:, 1] ** 2))
+    rospy.loginfo('Error: ' + str(error))
 
     # Refine estimate using LM
     if not success:
@@ -355,8 +355,8 @@ def calibrate(points2D=None, points3D=None):
             translation_vector, camera_matrix, dist_coeffs)[0].squeeze(1)
         assert(points2D_reproj.shape == points2D.shape)
         error = (points2D_reproj - points2D)[inliers]  # Compute error only over inliers.
-        rmse = np.sqrt(np.mean(error[:, 0] ** 2 + error[:, 1] ** 2))
-        rospy.loginfo('Re-projection error after LM refinement (RMSE) in px: ' + str(rmse))
+        #rmse = np.sqrt(np.mean(error[:, 0] ** 2 + error[:, 1] ** 2))
+        rospy.loginfo('Error: ' + str(error))
 
     # Convert rotation vector
     rotation_matrix = cv2.Rodrigues(rotation_vector)[0]
